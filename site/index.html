@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthrough</title>
+<meta name="description" content="Turn a feature brief into a narrated, annotated video tutorial of your web app, recorded from the real UI and voiced in your own voice.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fdf3e1">
+<meta property="og:title" content="Walkthrough">
+<meta property="og:description" content="Narrated video tutorials, captured from your running web app and voiced in your own voice.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:image" content="https://exiscosoft.github.io/walkthrough/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap">
+<style>
+:root {
+  --paper: #fdf3e1;
+  --paper-deep: #f9e1b6;
+  --paper-hover: #fbebcd;
+  --ink: #192734;
+  --rule: #8d99a5;
+  --muted: #495d6f;
+  --screen: #192734;
+  --screen-raise: #243749;
+  --screen-line: #33475a;
+  --screen-text: #fdf3e1;
+  --screen-muted: #a9b7c4;
+  --amber: #fcb336;
+  --orange: #fb9117;
+  --tan: #dea564;
+  --sky: #9db4c9;
+  --accent: var(--orange);
+  --gutter: 34px;
+  --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+  --body: "DM Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --serif: "Newsreader", Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, figure, blockquote, ol, ul, dl, dd, pre { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; touch-action: manipulation; }
+a:focus-visible, button:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+.mono { font: 500 11px/1.6 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; }
+.wrap { margin: 0 var(--gutter); }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--paper); padding: 10px 14px; z-index: 10; }
+.skip:focus { left: 8px; }
+.arrow { display: inline-block; width: 1em; height: 1em; vertical-align: -0.12em; }
+
+/* Header */
+.top {
+  min-height: 98px;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.logo {
+  font: 800 39px/1 var(--display);
+  letter-spacing: -0.065em;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo img { width: 52px; height: 52px; }
+.top > .mono { color: var(--muted); }
+.top nav { display: flex; gap: 26px; margin-left: auto; }
+.top nav a { padding: 14px 0; font-size: 14px; text-decoration: none; }
+.top nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.pill {
+  border: 1px solid var(--rule);
+  border-radius: 30px;
+  padding: 9px 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.pill i { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); display: inline-block; }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
+  padding: 28px var(--gutter) 34px;
+}
+.copy { display: flex; flex-direction: column; }
+.kicker { display: flex; justify-content: space-between; gap: 16px; margin: 2px 0 30px; color: var(--muted); }
+h1 {
+  font: 800 clamp(58px, 8.4vw, 118px)/0.9 var(--display);
+  letter-spacing: -0.066em;
+  margin-left: -0.04em;
+}
+h1 em { font: italic 500 1em/0 var(--serif); letter-spacing: -0.045em; }
+.copy > p { font-size: 18px; line-height: 1.55; margin: 26px 0 28px; max-width: 30em; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 34px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 17px 19px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.cta:hover { background: var(--screen-raise); }
+.link { font-weight: 500; text-underline-offset: 5px; }
+.footnote {
+  margin-top: auto;
+  padding-top: 36px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.footnote svg { flex: none; width: 34px; height: 34px; }
+.footnote b { font-weight: 600; }
+
+/* Poster: the demo frame */
+.poster { position: relative; min-width: 0; background: var(--screen); color: var(--screen-text); }
+.field {
+  background: var(--accent);
+  padding: 46px 28px 50px;
+  position: relative;
+  transition: background-color 0.5s ease;
+}
+.field .mono { position: absolute; left: 28px; color: var(--ink); }
+.field .mono.t { top: 16px; }
+.field .mono.b { bottom: 16px; }
+.field .mono.r { left: auto; right: 28px; }
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 4px 5px 0 var(--ink);
+  outline: 1.5px solid var(--ink);
+}
+.stage { position: absolute; top: 0; left: 0; width: 960px; height: 540px; transform-origin: 0 0; }
+.zoom { position: absolute; inset: 0; transform-origin: 0 0; transition: transform 0.9s cubic-bezier(0.6, 0, 0.2, 1); }
+.chrome { height: 38px; background: #ececec; border-bottom: 1px solid #d6d6d6; display: flex; align-items: center; gap: 7px; padding: 0 14px; }
+.chrome i { width: 11px; height: 11px; border-radius: 50%; background: #cfcfcf; }
+.chrome span { margin-left: 18px; background: #fff; border-radius: 6px; padding: 3px 14px; font: 13px var(--body); color: #555; width: 360px; }
+.app { position: absolute; top: 38px; left: 0; right: 0; bottom: 0; background: #f4f5f7; color: #1d2330; font-family: var(--body); }
+.app-nav { height: 48px; background: #fff; border-bottom: 1px solid #e3e5ea; display: flex; align-items: center; padding: 0 26px; font-weight: 600; font-size: 15px; gap: 8px; }
+.app-nav b { width: 18px; height: 18px; border-radius: 4px; background: #1e3244; display: inline-block; }
+.card { position: absolute; left: 290px; top: 74px; width: 380px; background: #fff; border: 1px solid #e3e5ea; border-radius: 10px; padding: 26px 28px 28px; }
+.card h4 { margin: 0 0 6px; font-size: 21px; line-height: 1.25; letter-spacing: -0.01em; }
+.card p { margin: 0 0 18px; font-size: 13px; color: #5b6272; }
+.card label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 5px; }
+.input { height: 38px; border: 1px solid #cdd1d9; border-radius: 6px; margin-bottom: 14px; display: flex; align-items: center; padding: 0 11px; font-size: 14px; color: #1d2330; }
+.mask { flex: 1; height: 18px; background: #111; border-radius: 2px; position: relative; }
+.mask::after { content: "masked"; position: absolute; right: 6px; top: 1px; font: 600 10px/16px var(--body); color: #bbb; letter-spacing: 0.04em; }
+.btn { display: inline-flex; height: 40px; align-items: center; justify-content: center; width: 100%; background: #1e3244; color: #fff; border-radius: 6px; font-weight: 600; font-size: 14px; margin-top: 4px; }
+.done { display: none; text-align: center; padding-top: 34px; }
+.done .tick { width: 54px; height: 54px; border-radius: 50%; background: #e3f1e5; color: #2c7a3d; margin: 0 auto 16px; display: grid; place-items: center; }
+.done h4 { font-size: 22px; }
+.done .btn { width: auto; padding: 0 30px; }
+.stage.is-done .form { display: none; }
+.stage.is-done .done { display: block; }
+.spot {
+  position: absolute;
+  border: 3px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: 0 0 0 2400px rgba(16, 26, 36, 0.56);
+  transition: top 0.9s cubic-bezier(0.6, 0, 0.2, 1), left 0.9s cubic-bezier(0.6, 0, 0.2, 1), width 0.9s cubic-bezier(0.6, 0, 0.2, 1), height 0.9s cubic-bezier(0.6, 0, 0.2, 1), border-color 0.5s ease;
+  pointer-events: none;
+}
+.spot b {
+  position: absolute;
+  left: -16px;
+  top: -16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  display: grid;
+  place-items: center;
+  font: 800 15px/1 var(--display);
+  transition: background-color 0.5s ease;
+}
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  max-width: 760px;
+  width: max-content;
+  background: rgba(12, 20, 28, 0.88);
+  color: #fff;
+  font: 500 21px/1.35 var(--body);
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-align: center;
+}
+.progress { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(0, 0, 0, 0.25); }
+.progress span { display: block; height: 100%; background: var(--accent); transition: width 0.9s ease, background-color 0.5s ease; }
+.poster-caption { padding: 16px 22px 18px; display: grid; gap: 3px; }
+.poster-caption .mono { color: var(--screen-muted); }
+.poster-caption strong { font: 500 26px/1.2 var(--display); letter-spacing: -0.025em; }
+.poster-caption > span:last-child { font-size: 13px; color: var(--screen-muted); }
+.ticket {
+  position: absolute;
+  right: -10px;
+  bottom: 74px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 13px 17px;
+  font: 500 11px/1.5 var(--mono);
+  letter-spacing: 0.05em;
+  transform: rotate(-7deg);
+  box-shadow: 2px 3px 0 var(--ink);
+  border: 1px solid var(--ink);
+}
+
+/* Scene strip */
+.scenes {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 1.15fr);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+}
+.scenes-head { padding: 20px 20px 18px 0; }
+.scenes-head .mono { color: var(--muted); }
+.scenes-head h2 { font: 600 34px/1.1 var(--display); letter-spacing: -0.045em; margin-top: 7px; }
+.scene {
+  padding: 20px 17px 22px;
+  text-align: left;
+  position: relative;
+  border-left: 1px solid var(--rule);
+  min-height: 128px;
+}
+.scene:hover { background: var(--paper-hover); }
+.scene[aria-pressed="true"] { background: var(--paper-deep); }
+.scene .mono { display: flex; justify-content: space-between; color: var(--muted); }
+.scene .sw { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--ink); display: inline-block; vertical-align: 0; margin-right: 8px; }
+.scene strong { display: block; font: 600 19px/1.2 var(--display); letter-spacing: -0.025em; margin: 10px 0 4px; }
+.scene small { font-size: 13px; color: var(--muted); }
+.scene .arrow { position: absolute; right: 13px; bottom: 15px; font-size: 18px; }
+
+/* Sections */
+.section { padding: 76px 0 0; }
+.sec-head {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
+  align-items: end;
+  padding-bottom: 22px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.sec-head .mono { color: var(--muted); display: block; margin-bottom: 10px; }
+h2.big { font: 800 clamp(40px, 5.4vw, 72px)/0.95 var(--display); letter-spacing: -0.06em; }
+h2.big em { font: italic 500 1em/0 var(--serif); letter-spacing: -0.04em; }
+.sec-head p { font-size: 17px; max-width: 34em; }
+
+/* The cut: pipeline */
+.cut li {
+  display: grid;
+  grid-template-columns: 70px 1fr 1.25fr;
+  gap: 0 32px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.cut .n { font: 500 12px var(--mono); color: var(--muted); }
+.cut h3 { font: 600 26px/1.15 var(--display); letter-spacing: -0.035em; }
+.cut p { font-size: 15px; max-width: 36em; }
+.cut code { display: block; margin-top: 8px; font: 13px/1.6 var(--mono); color: var(--muted); }
+
+/* House rules */
+.rules { display: grid; grid-template-columns: 1fr 1.25fr; gap: 32px; padding-top: 28px; }
+.rules dl { display: grid; gap: 0; }
+.rules dl div { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.rules dl div:first-child { padding-top: 0; }
+.rules dt { font: 600 20px/1.2 var(--display); letter-spacing: -0.025em; margin-bottom: 6px; }
+.rules dd { font-size: 15px; max-width: 34em; }
+.term { background: var(--screen); color: var(--screen-text); align-self: start; }
+.term-bar { display: flex; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--screen-line); color: var(--screen-muted); }
+.term pre { padding: 20px 18px 24px; font: 13px/1.75 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.term .ok { color: var(--sky); }
+.term .warn { color: var(--amber); }
+.term .dim { color: var(--screen-muted); }
+.term-note { padding: 0 18px 18px; font-size: 13px; color: var(--screen-muted); }
+
+/* Quick start */
+.start { display: grid; grid-template-columns: 1fr 1.25fr; gap: 32px; padding-top: 28px; }
+.start-copy p { font-size: 15px; margin-bottom: 14px; max-width: 32em; }
+.start-copy ul { margin-top: 6px; }
+.start-copy li { font-size: 15px; padding: 9px 0; border-top: 1px solid var(--rule); }
+.start-copy li:last-child { border-bottom: 1px solid var(--rule); }
+.start-copy code { font: 13px var(--mono); }
+.code { background: var(--screen); color: var(--screen-text); position: relative; min-width: 0; }
+.code pre { padding: 22px 20px 24px; font: 13px/1.75 var(--mono); overflow-x: auto; }
+.code .c { color: var(--screen-muted); }
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: 1px solid var(--screen-line);
+  border-radius: 30px;
+  padding: 6px 12px;
+  color: var(--screen-text);
+}
+.copy-btn:hover { background: var(--screen-raise); }
+
+/* Claude Code */
+.agent { display: grid; grid-template-columns: 1fr 1.25fr; gap: 32px; padding-top: 28px; align-items: start; }
+.agent blockquote { font: italic 500 clamp(28px, 3.2vw, 40px)/1.15 var(--serif); letter-spacing: -0.02em; }
+.agent blockquote::before { content: "“"; }
+.agent blockquote::after { content: "”"; }
+.agent p { font-size: 15px; max-width: 36em; margin-bottom: 14px; }
+.agent code { font: 13px var(--mono); }
+
+/* Programme / roadmap */
+.programme { display: grid; grid-template-columns: repeat(3, 1fr); }
+.programme article { padding: 22px 22px 26px; border-left: 1px solid var(--rule); }
+.programme article:first-child { border-left: 0; padding-left: 0; }
+.programme article.now { background: var(--paper-deep); padding-left: 22px; }
+.programme .mono { color: var(--muted); display: flex; justify-content: space-between; }
+.programme h3 { font: 600 24px/1.15 var(--display); letter-spacing: -0.035em; margin: 10px 0 8px; }
+.programme p { font-size: 15px; }
+.note { margin-top: 26px; padding: 16px 20px; border: 1px solid var(--ink); background: #fffaf0; font-size: 15px; max-width: 52em; }
+.note b { font-weight: 600; }
+
+/* Footer */
+.bottom {
+  margin-top: 80px;
+  border-top: 1.5px solid var(--ink);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 24px;
+  padding: 16px 0 24px;
+}
+.bottom a { text-underline-offset: 3px; }
+
+@media (max-width: 1080px) {
+  .top > .mono { display: none; }
+  .scenes { grid-template-columns: repeat(4, 1fr); }
+  .scenes-head { grid-column: 1 / -1; border-bottom: 1px solid var(--rule); }
+  .scene:nth-child(2) { border-left: 0; }
+}
+@media (max-width: 900px) {
+  :root { --gutter: 20px; }
+  .hero, .sec-head, .rules, .start, .agent { grid-template-columns: 1fr; }
+  .hero { gap: 28px; }
+  .footnote { margin-top: 0; padding-top: 28px; }
+  .ticket { bottom: 82px; right: -4px; }
+  .scenes { grid-template-columns: repeat(2, 1fr); }
+  .scene:nth-child(4) { border-left: 0; }
+  .scene:nth-child(n+4) { border-top: 1px solid var(--rule); }
+  .cut li { grid-template-columns: 44px 1fr; }
+  .cut li p { grid-column: 2; margin-top: 6px; }
+  .programme { grid-template-columns: 1fr; }
+  .programme article, .programme article:first-child { border-left: 0; border-top: 1px solid var(--rule); padding-left: 0; }
+  .programme article.now { padding-left: 16px; }
+}
+@media (max-width: 620px) {
+  .logo img { width: 42px; height: 42px; }
+  .top { gap: 14px; flex-wrap: wrap; min-height: 76px; padding: 14px 0; }
+  .logo { font-size: 32px; }
+  .top nav { gap: 18px; margin-left: 0; order: 3; width: 100%; }
+  .top nav a { padding: 4px 0; }
+  .pill { display: none; }
+  .kicker { flex-direction: column; gap: 2px; }
+  .field { padding: 40px 14px 44px; }
+  .field .mono { left: 14px; }
+  .field .mono.r { right: 14px; }
+  .ticket { display: none; }
+  .scenes { grid-template-columns: 1fr; }
+  .scene { border-left: 0; border-top: 1px solid var(--rule); min-height: 0; }
+  .scene:nth-child(n) { border-left: 0; }
+  .section { padding-top: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .zoom, .spot, .spot b, .field, .progress span { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top wrap">
+  <a class="logo" href="#main" aria-label="Walkthrough home">
+    <img src="assets/logo.png" alt="" width="52" height="52">
+    walkthrough
+  </a>
+  <span class="mono">Tutorial videos<br>from your running app</span>
+  <nav aria-label="Page">
+    <a href="#how">How it works</a>
+    <a href="#start">Quick start</a>
+    <a href="https://github.com/exiscosoft/walkthrough">GitHub</a>
+  </nav>
+  <span class="pill mono"><i></i>Phase 1 prototype</span>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="copy">
+      <div class="mono kicker">
+        <span>Recorded from the real UI</span>
+        <span>macOS / Apple silicon</span>
+      </div>
+      <h1 id="hero-title">Shot on<br>your <em>real</em> app.</h1>
+      <p>Walkthrough opens your web app in Chrome, follows the steps you describe and turns them into a narrated tutorial video, with the controls highlighted and your own voice on the soundtrack.</p>
+      <div class="actions">
+        <a class="cta" href="#start">Read the quick start
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.7"/></svg>
+        </a>
+        <a class="link" href="https://github.com/exiscosoft/walkthrough">View the source on GitHub</a>
+      </div>
+      <div class="footnote">
+        <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17" cy="17" r="8" fill="var(--orange)"/></svg>
+        <span>Capture, speech and rendering run on your Mac.<br><b>1080p MP4, captions and a transcript.</b></span>
+      </div>
+    </div>
+
+    <figure class="poster" aria-label="Example output: a tutorial video frame">
+      <div class="field" id="field">
+        <span class="mono t">dealer.walkthrough</span>
+        <span class="mono t r" id="field-scene">Scene 01 / 04</span>
+        <div class="frame" id="frame">
+          <div class="stage" id="stage" aria-hidden="true">
+            <div class="zoom" id="zoom">
+              <div class="chrome"><i></i><i></i><i></i><span>localhost:3000/invite</span></div>
+              <div class="app">
+                <div class="app-nav"><b></b>Northwind Motors</div>
+                <div class="card">
+                  <div class="form">
+                    <h4 data-t="heading">Join Northwind Motors as a dealer</h4>
+                    <p>You were invited to the dealer portal. Set a password to finish.</p>
+                    <label>Email</label>
+                    <div class="input">dealer@example.test</div>
+                    <label>Password</label>
+                    <div class="input" data-t="password"><span class="mask"></span></div>
+                    <span class="btn" data-t="button">Set password</span>
+                  </div>
+                  <div class="done" data-t="done">
+                    <div class="tick"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4"/></svg></div>
+                    <h4>Your dealer account is ready</h4>
+                    <p>You can sign in with your new password.</p>
+                    <span class="btn">Go to sign in</span>
+                  </div>
+                </div>
+              </div>
+              <div class="spot" id="spot"><b id="spot-n">1</b></div>
+            </div>
+            <div class="caption" id="caption"></div>
+            <div class="progress"><span id="progress"></span></div>
+          </div>
+        </div>
+        <span class="mono b">Masked, highlighted, captioned</span>
+        <span class="mono b r">1080p MP4</span>
+      </div>
+      <figcaption class="poster-caption">
+        <span class="mono">Now showing</span>
+        <strong id="scene-title">Open the invitation</strong>
+        <span>Set up your dealer account, a sample tutorial</span>
+      </figcaption>
+      <span class="ticket">PASSWORD MASKED<br><b>BEFORE IT HITS DISK.</b></span>
+    </figure>
+  </section>
+
+  <section class="scenes wrap" aria-label="Scenes in the sample tutorial">
+    <div class="scenes-head">
+      <span class="mono">Pick a scene</span>
+      <h2>The cut ↘</h2>
+    </div>
+    <!-- scene buttons are rendered by the script below -->
+  </section>
+
+  <section class="section wrap" id="how" aria-labelledby="how-title">
+    <div class="sec-head">
+      <div>
+        <span class="mono">How it works</span>
+        <h2 class="big" id="how-title">From brief<br>to <em>final cut.</em></h2>
+      </div>
+      <p>Each stage saves its output before the next one starts. Change one line of narration and only that clip and its scene are rebuilt. A failed run never overwrites a good export.</p>
+    </div>
+    <ol class="cut">
+      <li><span class="n">01</span><h3>Write the brief</h3><p>Say who the tutorial is for and what they'll achieve, then list the steps in <code style="display:inline;margin:0">flow.yaml</code> along with what should be on screen after each one.<code>walkthrough init · walkthrough plan</code></p></li>
+      <li><span class="n">02</span><h3>Capture</h3><p>Chrome performs each step on your local app and screenshots the result. Sensitive fields are blacked out before anything is saved.<code>walkthrough capture</code></p></li>
+      <li><span class="n">03</span><h3>Storyboard</h3><p>Check every frame, its highlight and its masks on one page. Move a highlight or change a crop if the suggestion is off.<code>walkthrough storyboard · walkthrough annotate</code></p></li>
+      <li><span class="n">04</span><h3>Script</h3><p>Narration is drafted from the labels that were actually on screen. Nothing can claim success before the outcome was captured.<code>walkthrough script draft</code></p></li>
+      <li><span class="n">05</span><h3>Narrate</h3><p>Import your own recordings, which get caption timing automatically, or use a local clone of your voice.<code>walkthrough narrate</code></p></li>
+      <li><span class="n">06</span><h3>Render</h3><p>FFmpeg assembles zooms, callouts, title cards, crossfades and captions into a 1080p video. Preview renders are watermarked.<code>walkthrough render --preview</code></p></li>
+      <li><span class="n">07</span><h3>Approve and export</h3><p>Approve the storyboard, script and visuals. Edit anything afterwards and that approval is cleared until you approve again.<code>walkthrough approve · walkthrough export</code></p></li>
+    </ol>
+  </section>
+
+  <section class="section wrap" aria-labelledby="rules-title">
+    <div class="sec-head">
+      <div>
+        <span class="mono">House rules</span>
+        <h2 class="big" id="rules-title">It stops<br>instead of <em>guessing.</em></h2>
+      </div>
+      <p>A tutorial that shows the wrong button does more harm than no tutorial. When the app doesn't match the plan, capture pauses and tells you why.</p>
+    </div>
+    <div class="rules">
+      <dl>
+        <div><dt>Only what it saw</dt><dd>Narration can only describe steps that were captured, using the labels that were on screen.</dd></div>
+        <div><dt>Masked at capture time</dt><dd>Passwords, fields you list and likely-sensitive text are blacked out before a screenshot is written. Masks it's unsure about block export until you confirm them.</dd></div>
+        <div><dt>Careful with your data</dt><dd>Navigation is limited to domains you allow. Steps that change data need your permission and are never repeated without a reset.</dd></div>
+        <div><dt>Your voice, with consent</dt><dd>Voice enrolment requires you to confirm the voice is yours, and a voice can't be used until you've heard and approved a sample.</dd></div>
+      </dl>
+      <figure class="term" aria-label="Example of a paused capture">
+        <div class="term-bar mono"><span>Terminal</span><span>Exit code 2</span></div>
+<pre><span class="dim">$</span> walkthrough capture dealer.walkthrough
+<span class="warn">PAUSED [LOCATOR_NOT_FOUND]</span> Step "save": no visible button "Set password" on http://localhost:3000/invite
+<span class="dim">  → The interface may have changed. Similar labels on the page: "Create password". Update the step's target in flow.yaml.</span></pre>
+        <figcaption class="term-note">Other pause codes cover unexpected dialogs, expired sessions, CAPTCHAs, navigation off the allowlist and data changes that weren't allowed.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section wrap" id="start" aria-labelledby="start-title">
+    <div class="sec-head">
+      <div>
+        <span class="mono">Quick start</span>
+        <h2 class="big" id="start-title">Roll <em>camera.</em></h2>
+      </div>
+      <p>Install the CLI, start your app locally with demo data, and make your first project. <code>walkthrough status</code> tells you the next step at any point.</p>
+    </div>
+    <div class="start">
+      <div class="start-copy">
+        <p>You'll need:</p>
+        <ul>
+          <li>A Mac with Apple silicon</li>
+          <li>Node.js 22 or later, and pnpm</li>
+          <li>Google Chrome</li>
+          <li>FFmpeg: <code>brew install ffmpeg</code></li>
+          <li>Optional, for local speech: uv</li>
+        </ul>
+      </div>
+      <div class="code">
+        <button class="copy-btn mono" type="button" data-copy="install">Copy</button>
+<pre id="install"><span class="c"># Install</span>
+git clone https://github.com/exiscosoft/walkthrough.git
+cd walkthrough
+pnpm install
+pnpm build &amp;&amp; pnpm link --global
+
+<span class="c"># Make a project, then describe the steps in flow.yaml</span>
+walkthrough init dealer.walkthrough \
+  --name "Set up your dealer account" \
+  --url http://localhost:3000/invite
+walkthrough plan dealer.walkthrough
+walkthrough capture dealer.walkthrough
+
+<span class="c"># Narrate with your own recordings and render a preview</span>
+walkthrough script draft dealer.walkthrough
+walkthrough voice use dealer.walkthrough --engine import
+walkthrough narrate dealer.walkthrough --from-dir recordings/
+walkthrough render dealer.walkthrough --preview</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="agent-title">
+    <div class="sec-head">
+      <div>
+        <span class="mono">With Claude Code</span>
+        <h2 class="big" id="agent-title">Or just <em>ask.</em></h2>
+      </div>
+      <p>The repository includes a Claude Code skill. Claude plans the flow, runs the capture, writes the narration from what was captured and walks you through review.</p>
+    </div>
+    <div class="agent">
+      <blockquote>Make a walkthrough video showing how a dealer accepts an invitation and sets a password.</blockquote>
+      <div>
+        <p>Copy <code>skill/walkthrough</code> into your app's <code>.claude/skills/</code>, or link it into <code>~/.claude/skills/</code> to use it in every repo. Then ask for a video or run <code>/walkthrough</code>.</p>
+        <p>Claude stops for the decisions that are yours: which data-changing steps to allow, checking the masks, and the three approvals. Masked screenshots and page snapshots are sent to your model provider when Claude reads them. If you'd rather avoid that, write the flow and script yourself.</p>
+        <a class="link" href="https://github.com/exiscosoft/walkthrough#using-it-with-claude-code">Set up the skill</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="roadmap-title">
+    <div class="sec-head">
+      <div>
+        <span class="mono">Programme</span>
+        <h2 class="big" id="roadmap-title">Now showing,<br><em>coming soon.</em></h2>
+      </div>
+      <p>Walkthrough is an early technical proof. The full pipeline works and is tested end to end.</p>
+    </div>
+    <div class="programme">
+      <article class="now">
+        <span class="mono"><span>Now</span><span>Phase 1</span></span>
+        <h3>Technical proof</h3>
+        <p>CLI, capture and masking, rendering, recorded narration, the speech sidecar, a benchmark harness and the Claude Code skill.</p>
+      </article>
+      <article>
+        <span class="mono"><span>Next</span><span>Phase 2</span></span>
+        <h3>MVP</h3>
+        <p>An interactive storyboard editor, brand presets and a privacy review screen, after a speech benchmark and a proof run on a real app.</p>
+      </article>
+      <article>
+        <span class="mono"><span>Later</span><span>Phase 3</span></span>
+        <h3>Pilot</h3>
+        <p>Three to five marketers making ten or more tutorials. After that: continuous recording, multilingual narration and recapture when the UI changes.</p>
+      </article>
+    </div>
+    <p class="note"><b>About voice cloning:</b> local voice cloning hasn't passed its benchmark on 8 GB machines yet, so importing your own recordings is the reliable way to narrate for now. Some speech model weights, such as F5-TTS, are licensed for non-commercial use only.</p>
+  </section>
+
+  <footer class="bottom wrap mono">
+    <span><a href="https://github.com/exiscosoft/walkthrough/blob/main/LICENSE">MIT licence</a>, © 2026 Exisco</span>
+    <span>Made for the people who write the docs</span>
+    <span><a href="https://github.com/exiscosoft/walkthrough">exiscosoft/walkthrough on GitHub</a></span>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const scenes = [
+    { title: "Open the invitation", line: "Start from the email link", time: "00:00", target: "heading", scale: 1, color: "--amber",
+      caption: "Open the invitation link. It takes you to the dealer sign-up page." },
+    { title: "Choose a password", line: "Masked before capture", time: "00:09", target: "password", scale: 1.6, color: "--orange",
+      caption: "Enter a password of at least 12 characters." },
+    { title: "Set your password", line: "Allowed on demo data", time: "00:17", target: "button", scale: 1.6, color: "--sky",
+      caption: "Select Set password to save it." },
+    { title: "Account ready", line: "The captured outcome", time: "00:24", target: "done", scale: 1.3, color: "--tan", done: true,
+      caption: "Your dealer account is ready. You can now sign in." },
+  ];
+  const W = 960, H = 540;
+  const $ = (id) => document.getElementById(id);
+  const root = document.documentElement;
+  const stage = $("stage"), zoom = $("zoom"), spot = $("spot"), frame = $("frame");
+  const strip = document.querySelector(".scenes");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const buttons = scenes.map((s, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "scene";
+    b.setAttribute("aria-pressed", "false");
+    b.innerHTML = `<span class="mono"><span><i class="sw" style="background:var(${s.color})"></i>${s.time}</span><span>0${i + 1}</span></span>` +
+      `<strong>${s.title}</strong><small>${s.line}</small>` +
+      `<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.7"/></svg>`;
+    b.addEventListener("click", () => { stopAuto(); show(i); });
+    strip.appendChild(b);
+    return b;
+  });
+
+  // Position relative to the zoom layer, in unscaled stage pixels.
+  function rectOf(el) {
+    let x = 0, y = 0, n = el;
+    while (n && n !== zoom) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+    return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+
+  function show(i) {
+    const s = scenes[i];
+    stage.classList.toggle("is-done", !!s.done);
+    root.style.setProperty("--accent", `var(${s.color})`);
+    const r = rectOf(stage.querySelector(`[data-t="${s.target}"]`));
+    const pad = 8;
+    Object.assign(spot.style, { left: r.x - pad + "px", top: r.y - pad + "px", width: r.w + pad * 2 + "px", height: r.h + pad * 2 + "px" });
+    $("spot-n").textContent = i + 1;
+    const cx = r.x + r.w / 2, cy = r.y + r.h / 2, k = s.scale;
+    const tx = Math.min(0, Math.max(W - W * k, W / 2 - cx * k));
+    const ty = Math.min(0, Math.max(H - H * k, H * 0.44 - cy * k));
+    zoom.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`;
+    $("caption").textContent = s.caption;
+    $("progress").style.width = ((i + 1) / scenes.length) * 100 + "%";
+    $("scene-title").textContent = s.title;
+    $("field-scene").textContent = `Scene 0${i + 1} / 0${scenes.length}`;
+    buttons.forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+  }
+
+  function fit() {
+    const k = frame.clientWidth / W;
+    stage.style.transform = `scale(${k})`;
+    // Keep captions legible when the frame is phone-sized.
+    $("caption").style.fontSize = Math.max(21, 12 / k) + "px";
+  }
+  new ResizeObserver(fit).observe(frame);
+  fit();
+  show(0);
+
+  // Play through the scenes once on load, then hand control to the viewer.
+  let timer = null;
+  function stopAuto() { clearInterval(timer); timer = null; }
+  if (!reduced) {
+    let i = 0;
+    timer = setInterval(() => {
+      i += 1;
+      show(i);
+      if (i === scenes.length - 1) stopAuto();
+    }, 3400);
+  }
+
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = $(btn.dataset.copy).innerText.split("\n").filter((l) => !l.startsWith("#")).join("\n").trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "Copied";
+      } catch {
+        btn.textContent = "Copy failed";
+      }
+      setTimeout(() => { btn.textContent = "Copy"; }, 1800);
+    });
+  });
+})();
+</script>
+</body>
+</html>
