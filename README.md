@@ -10,6 +10,8 @@
 ![python](https://img.shields.io/badge/python-3.11-3776AB)
 ![licence](https://img.shields.io/badge/licence-MIT-blue)
 
+**[Website](https://exiscosoft.github.io/walkthrough/)**
+
 </div>
 
 Walkthrough opens your app in Chrome, follows the steps you describe and captures each screen with sensitive fields already masked. It then highlights the controls involved, drafts narration from the labels it actually saw, voices it locally and renders a 1080p MP4 with captions. It runs from a command line, or Claude Code can drive it for you through an agent skill.
