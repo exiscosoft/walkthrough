@@ -370,3 +370,5 @@ The MIT License covers this repository's code only. Speech models, runtimes and 
 ## Acknowledgements
 
 Built on [Playwright](https://playwright.dev), [FFmpeg](https://ffmpeg.org), [sharp](https://sharp.pixelplumbing.com), [Chatterbox](https://github.com/resemble-ai/chatterbox), [F5-TTS](https://github.com/SWivid/F5-TTS) / [f5-tts-mlx](https://github.com/lucasnewman/f5-tts-mlx), [mlx-audio](https://github.com/Blaizzy/mlx-audio) and [Whisper](https://github.com/openai/whisper) via [mlx-whisper](https://github.com/ml-explore/mlx-examples).
+
+The [website](https://exiscosoft.github.io/walkthrough/)'s visual direction is adapted from a reference on [unslop.site](https://unslop.site).
