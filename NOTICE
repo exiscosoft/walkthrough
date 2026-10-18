@@ -1,0 +1,95 @@
+Walkthrough
+Copyright (c) 2026 Exisco
+
+The source code in this repository is licensed under the MIT License (see
+LICENSE). That licence covers only this repository's code. It does not cover
+the third-party models, libraries or tools described below. They keep their
+own licences.
+
+No model weights are included in this repository. Each speech engine
+downloads its weights from Hugging Face the first time it is used. Before you
+use generated audio commercially, check the current licence on the model card.
+Licences can change, and the summaries below are not legal advice.
+
+
+SPEECH MODELS
+-------------
+
+F5-TTS, via f5-tts-mlx (engine: f5-mlx)
+  Model:   lucasnewman/f5-tts-mlx
+  Code:    MIT (https://github.com/lucasnewman/f5-tts-mlx,
+           https://github.com/SWivid/F5-TTS)
+  Weights: CC-BY-NC-4.0, non-commercial use only. The pretrained F5-TTS
+           weights inherit this restriction from their training data
+           (the Emilia dataset). Do not use audio made with this engine in
+           commercial material.
+
+Chatterbox (engine: chatterbox)
+  Model:   ResembleAI/chatterbox
+  Code:    MIT (https://github.com/resemble-ai/chatterbox)
+  Weights: MIT
+  Note:    Audio it generates carries Resemble AI's Perth watermark
+           (resemble-perth, MIT), which is applied by the upstream library.
+
+Chatterbox MLX conversion (engine: mlx-audio)
+  Model:   mlx-community/Chatterbox-TTS-fp16
+  Weights: MIT, inherited from ResembleAI/chatterbox
+
+Qwen3-TTS (engine: mlx-audio, benchmark candidate)
+  Model:   mlx-community/Qwen3-TTS-12Hz-0.6B-Base-bf16
+           (converted from Qwen/Qwen3-TTS-12Hz-0.6B-Base)
+  Weights: Apache-2.0, according to Qwen's release announcement. Confirm
+           against the Qwen model card before relying on it.
+
+Other mlx-audio models
+  The mlx-audio engine can load any Hugging Face repository passed with
+  `--engines mlx-audio:<repo>` or the `model` setting. These have no fixed
+  licence. The engine reports "unknown: review model card" unless a licence
+  is configured. You are responsible for checking each one.
+
+
+ALIGNMENT AND TRANSCRIPTION
+---------------------------
+
+Whisper, via mlx-whisper (speech/setup.sh align)
+  Model:   mlx-community/whisper-small.en-mlx
+           (converted from openai/whisper-small.en)
+  Code:    MIT (https://github.com/openai/whisper,
+           https://github.com/ml-explore/mlx-examples)
+  Weights: MIT
+
+
+SPEECH RUNTIMES
+---------------
+
+  mlx-audio   MIT   https://github.com/Blaizzy/mlx-audio
+  MLX         MIT   https://github.com/ml-explore/mlx
+  PyTorch     BSD-3-Clause   https://github.com/pytorch/pytorch
+
+
+BUNDLED AUDIO
+-------------
+
+bench/reference/synthetic-ref.wav was generated with the macOS `say`
+command. Apple's macOS licence limits what system voice output may be used
+for. The clip is a benchmark input only and is not used to narrate videos.
+Replace it with a recording you own before redistributing this repository
+in a commercial context. The test suite also generates audio with `say` at
+run time. That audio is temporary and is not distributed.
+
+
+OTHER DEPENDENCIES
+------------------
+
+Walkthrough depends on, but does not bundle, these tools and libraries.
+They are installed separately under their own licences:
+
+  Playwright   Apache-2.0      https://github.com/microsoft/playwright
+  sharp        Apache-2.0      https://github.com/lovell/sharp
+               (its prebuilt binaries include libvips, LGPL-3.0-or-later)
+  FFmpeg       LGPL-2.1-or-later, or GPL depending on how it was built
+               https://ffmpeg.org/legal.html
+  Google Chrome   Google Chrome Terms of Service
+
+For the licences of the Node.js packages listed in package.json, see each
+package under node_modules/ after `pnpm install`.

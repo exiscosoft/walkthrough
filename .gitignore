@@ -1,0 +1,38 @@
+# Dependencies and build output
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Python speech sidecar: one virtualenv per engine (several GB), caches, build metadata
+speech/.venvs/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Video projects: screenshots, audio, renders and revision history are generated and large.
+# Keep each project's flow.yaml, which is the reviewable source.
+**/*.walkthrough/*
+!**/*.walkthrough/flow.yaml
+
+# Benchmark runs: generated audio and raw results (machine-specific, contain local paths).
+# Findings are summarised in docs/speech-benchmark.md.
+bench/results/
+
+# Test scratch space: fixture projects, browser profiles, logs
+test/.tmp/
+
+# Secrets such as DEMO_PASSWORD for flow testData
+.env
+.env.*
+!.env.example
+
+# Logs and tooling
+*.log
+coverage/
+.claude/settings.local.json
+
+# OS and editors
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+// Stand-in for a speech venv's python: speaks the sidecar's JSON-lines protocol and
+// writes a tone per sentence with ffmpeg. STUB_CRASH_ON=<n> exits during the nth synthesize.
+const { execFileSync } = require("node:child_process");
+const readline = require("node:readline");
+let synthCount = 0;
+const crashOn = Number(process.env.STUB_CRASH_ON || 0);
+const reply = (o) => process.stdout.write(JSON.stringify(o) + "\n");
+readline.createInterface({ input: process.stdin }).on("line", (line) => {
+  const req = JSON.parse(line);
+  if (req.cmd === "exit") process.exit(0);
+  if (req.cmd === "load") return reply({ id: req.id, ok: true, loadMs: 5, info: { engine: req.engine, model: "stub", license: "test", pid: process.pid } });
+  if (req.cmd === "mem") return reply({ id: req.id, ok: true, rssBytes: 1 });
+  if (req.cmd === "align") return reply({ id: req.id, ok: true, text: "", words: [] });
+  if (req.cmd === "synthesize") {
+    synthCount++;
+    if (crashOn && synthCount === crashOn) process.exit(9);
+    // Same sentence rule as src/util.ts splitSentences (minus abbreviations, unused in tests).
+    const sentences = [];
+    let cur = [];
+    for (const w of req.text.split(/\s+/).filter(Boolean)) {
+      cur.push(w);
+      if (/[.!?]["'”’)\]]*$/.test(w)) { sentences.push(cur.join(" ")); cur = []; }
+    }
+    if (cur.length) sentences.push(cur.join(" "));
+    // Simulates a model stuck mid-generation: busy, never reading stdin, never answering.
+    if (process.env.STUB_HANG_ON_SYNTH) for (;;);
+    const per = 900, gap = 180;
+    const total = sentences.length * per + (sentences.length - 1) * gap;
+    execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-f", "lavfi", "-i", `sine=frequency=330:duration=${total / 1000}`, "-ar", "48000", "-ac", "1", req.out]);
+    const segments = sentences.map((text, i) => ({ text, startMs: i * (per + gap), endMs: i * (per + gap) + per }));
+    return reply({ id: req.id, ok: true, durationMs: total, wallMs: 10, segments, sampleRate: 48000 });
+  }
+  reply({ id: req.id, ok: false, error: `unknown cmd ${req.cmd}` });
+});

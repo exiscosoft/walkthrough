@@ -1,0 +1,25 @@
+[project]
+name = "walkthrough-speech"
+version = "0.1.0"
+description = "Speech sidecar for the walkthrough engine (TTS + alignment), spoken to over JSON lines on stdio"
+requires-python = ">=3.11,<3.13"
+license = "MIT"
+dependencies = ["numpy", "soundfile", "psutil"]
+
+[project.optional-dependencies]
+# resemble-perth (Chatterbox watermarking) still imports pkg_resources.
+chatterbox = ["chatterbox-tts", "setuptools<81"]
+f5 = ["f5-tts-mlx"]
+mlxaudio = ["mlx-audio"]
+align = ["mlx-whisper"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["walkthrough_speech"]
+
+[tool.uv.extra-build-dependencies]
+# chatterbox-tts pulls in pkuseg, whose sdist imports numpy at build time.
+pkuseg = ["numpy"]

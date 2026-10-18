@@ -1,0 +1,41 @@
+# Eight-step fixture flow: a dealer accepts an invitation and sets a password.
+# {{BASE}} and {{MODE}} are substituted by the tests.
+prerequisites:
+  - Demo invitation token "demo" exists
+permittedDomains: ["127.0.0.1"]
+testData:
+  password: { value: "Correct-Horse-42!", sensitive: true }
+signedOutWhen:
+  - url: "/login"
+steps:
+  - id: open-invite
+    title: Open the invitation
+    action: { type: goto, url: "{{BASE}}/invite?token=demo&fixture={{MODE}}" }
+    expect: [{ visible: { role: heading, name: "You're invited to Northwind" } }]
+  - id: accept
+    title: Accept the invitation
+    action: { type: click, target: { role: button, name: "Accept invitation" } }
+    expect: [{ url: "/setup" }]
+  - id: name
+    title: Enter your name
+    action: { type: fill, target: { label: "Full name" }, value: "Avery Dealer" }
+  - id: region
+    title: Choose your region
+    action: { type: select, target: { label: "Dealer region" }, option: "Pacific Northwest" }
+  - id: password
+    title: Choose a password
+    action: { type: fill, target: { label: "Password", exact: true }, value: "${testData.password}" }
+  - id: confirm
+    title: Confirm the password
+    action: { type: fill, target: { label: "Confirm password" }, value: "${testData.password}" }
+  - id: create
+    title: Create the account
+    action: { type: click, target: { role: button, name: "Create account" } }
+    sideEffect: mutating
+    allow: true
+    expect: [{ url: "/welcome" }]
+  - id: welcome
+    title: Account is ready
+    action: { type: observe, target: { role: heading, name: "Your account is ready" } }
+    outcome: true
+    expect: [{ text: "You can now place and track dealer orders." }]
